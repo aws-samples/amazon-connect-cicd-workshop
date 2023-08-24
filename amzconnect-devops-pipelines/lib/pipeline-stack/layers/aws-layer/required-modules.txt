@@ -1,0 +1,7 @@
+@aws-sdk/client-codepipeline
+@aws-sdk/client-ssm
+@aws-sdk/client-secrets-manager
+@aws-lambda-powertools/logger
+@aws-lambda-powertools/tracer
+@aws-lambda-powertools/metrics
+@middy/core

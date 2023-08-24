@@ -1,0 +1,56 @@
+# Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# https://aws.amazon.com/agreement
+# SPDX-License-Identifier: MIT-0
+
+AWSTemplateFormatVersion: 2010-09-09
+Description: Deploy the Pipeline Deployment Role 
+
+Parameters:
+  pToolingAcountId: # AWS Tooling Account Id
+    Type: String
+    Description: AWS Tooling Account Id
+
+Metadata: # Parameter Organization on the CloudFormation Interface
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: Stack Parameters
+        Parameters:
+          - pToolingAcountId
+
+Resources:   
+  rPipelineDeploymentRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: PipelineDeploymentRole
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              AWS: !Ref pToolingAcountId
+              Service: 
+                - codepipeline.amazonaws.com
+                - codebuild.amazonaws.com
+                - cloudformation.amazonaws.com
+                - states.amazonaws.com   
+      Path: /
+      Policies:
+        - PolicyName: AWSCodePipelineServiceRolePolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                NotAction:
+                - iam:*
+                - organizations:*
+                - account:*
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                - iam:*Role*
+                - iam:*Policy*
+                - organizations:DescribeOrganization
+                - account:ListRegions
+                Resource: "*"

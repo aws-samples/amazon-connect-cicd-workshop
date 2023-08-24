@@ -1,0 +1,76 @@
+Description: This template deploys AWS Cloud9 using an SSH Connection into a VPC with a public subnet.
+
+Parameters:       
+    VpcCIDR:
+        Description: Please enter the IP range (CIDR notation) for this VPC
+        Type: String
+        Default: 10.0.0.0/24
+
+Resources:
+    VPC:
+        Type: AWS::EC2::VPC
+        Properties:
+            CidrBlock: !Ref VpcCIDR
+            EnableDnsSupport: true
+            EnableDnsHostnames: true
+    
+    InternetGateway:
+        Type: AWS::EC2::InternetGateway
+    
+    InternetGatewayAttachment:
+        Type: AWS::EC2::VPCGatewayAttachment
+        Properties:
+            InternetGatewayId: !Ref InternetGateway
+            VpcId: !Ref VPC
+            
+    PublicSubnet:
+        Type: AWS::EC2::Subnet
+        Properties:
+            VpcId: !Ref VPC
+            AvailabilityZone: !Select [ 0, !GetAZs '' ]
+            CidrBlock: !Ref VpcCIDR
+            MapPublicIpOnLaunch: false
+                
+    PublicRouteTable:
+        Type: AWS::EC2::RouteTable
+        Properties:
+            VpcId: !Ref VPC
+                
+    DefaultPublicRoute:
+        Type: AWS::EC2::Route
+        DependsOn: InternetGatewayAttachment
+        Properties:
+            RouteTableId: !Ref PublicRouteTable
+            DestinationCidrBlock: 0.0.0.0/0
+            GatewayId: !Ref InternetGateway
+            
+    PublicSubnetRouteTableAssociation:
+        Type: AWS::EC2::SubnetRouteTableAssociation
+        Properties:
+            RouteTableId: !Ref PublicRouteTable
+            SubnetId: !Ref PublicSubnet
+            
+    IDE:
+        DependsOn: 
+        -   PublicSubnet
+        Type: AWS::Cloud9::EnvironmentEC2
+        Properties:
+            AutomaticStopTimeMinutes: 60
+            ConnectionType: CONNECT_SSH 
+            ImageId: amazonlinux-2-x86_64
+            InstanceType: t2.medium
+            Name: CICDConnectWorkshop01
+            SubnetId: !Ref PublicSubnet
+
+Outputs:
+    VPC:
+        Description: A reference to the created VPC
+        Value: !Ref VPC
+    
+    PublicSubnet:
+        Description: A reference to the created public subnet
+        Value: !Ref PublicSubnet
+        
+    Cloud9IDE:
+        Description: A reference to the created Cloud9 environment
+        Value: !Ref IDE

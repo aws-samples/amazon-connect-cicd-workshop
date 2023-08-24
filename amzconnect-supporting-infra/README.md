@@ -2,33 +2,23 @@
 This workshop will teach you how to implement a [Continuous Integration and Continuous Delivery (CI/CD)](https://en.wikipedia.org/wiki/CI/CD) process for a contact center built using [AWS services](https://aws.amazon.com/).  This solution has Multi-Region support, which can be tailored for [Amazon Connect Global Resiliency](https://docs.aws.amazon.com/connect/latest/adminguide/setup-connect-global-resiliency.html)
 
 ## Concepts
-
-This pattern uses [AWS CodePipeline](https://aws.amazon.com/codepipeline/) for CI/CD and [AWS CodeBuild](https://aws.amazon.com/codebuild/) as a build service. The code is written in typescript and uses [CDK](https://aws.amazon.com/cdk/) to model the application components.
+**TODO** Add verbiage to describe this AWS Developer Tools and AWS CDK so we can add links to the services
 
 ### CI/CD Pipeline Architecture
- 
-The pipelines that deploy Amazon Connect and other associated items are installed into a single DevOps tooling account. All pipelines will run here and can deploy to any other supported region. The tooling account and the application account regions are configured independently and don't necessarily need to be the same.
+**TODO**
+* Tooling account is in 1 region
+* Child accounts can be in another region
+* Update diagrams to show this
 
-There are four pipelines deployed:
-- instance pipeline which creates the Amazon Connect instance itself. 
-- supporting-infra pipeline which creates supporting architectures such as lex bots, s3 buckets, and any other resource which is not primarily code.
-- lambdas pipeline which creates all associated lambda functions and layers. This is separate so that appropriate testing and security patterns can be run against the code itself.
-- contact-flows pipeline which deploys the Amazon Connect contact flows to the instance.
-
-The resources are deployed into the specified account and region first in the primary region and then to other secondary region(s).
-
+**TODO** Add verbiage to describe this.
 ![[architecture.png]](images/architecture.png)
 
 ### Monorepo Architecture
-
-The four application stacks are stored in a single monorepo. An API gateway backed by routing lambda receives webhooks from Github and starts the specified pipeline based upon the files added or modified. The github webhooks are secured using secrets to verify that all incoming requests are from the legitimate Github repo.
-
-
+**TODO** Add verbiage to describe this
 ![[Monorepo.png]](images/Monorepo.png)
 
 ### Amazon Connect Flows
-
-In [Amazon Connect](https://aws.amazon.com/connect/) deployments it is common to deploy [Amazon Connect Flows](https://docs.aws.amazon.com/connect/latest/adminguide/connect-contact-flows.html) that are created using the [Amazon Connect console](https://console.aws.amazon.com/connect/) which refer to the various [flow block definitions](https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html) (e.g., Play prompt, Set working queue, Get customer input, Invoke AWS Lambda function).  These resources included in the flow, such as queues and voice prompts, are referenced within the flow using the name of the resource and the Amazon Resource Name (ARN). The ARN is a unique identifier for a resource that is specific to the service and Region in which the resource is created. The functionality works great in a single account, however it becomes an issue when you need to move those flows between instances in different accounts and regions. The resource ARNs from the source instance need to be mapped to ones on the destination instance. If the names are the same, these resources can usually be resolved, however if they are different, one needs to manually resolve. This can be time consuming and prone to human error when you have multiple instances and a large numbers of flows.
+In [Amazon Connect](https://aws.amazon.com/connect/) deployments it is common to deploy [Amazon Connect Flows](https://docs.aws.amazon.com/connect/latest/adminguide/connect-contact-flows.html) that are created using the [Amazon Connect console](https://console.aws.amazon.com/connect/) which refer to the various [flow block definitions](https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html) (e.g., Play prompt, Set working queue, Get customer input, Invoke AWS Lambda function).  These definitions can reference other AWS services (e.g., [AWS Lambda](https://aws.amazon.com/lambda/), [Amazon Lex](https://aws.amazon.com/lex/)).  Flow block definitions and AWS Services are referenced by name (translated to ARN) or ARN. This works great in a single account, however it becomes an issue when you need to move those flows between instances in different accounts. The ARNs from the source instance need to be mapped to the destination instance.  This is time consuming and prone to human error when you have multiple instances and large numbers of flows.
 
 This design uses [Amazon Connect contact attributes](https://docs.aws.amazon.com/connect/latest/adminguide/connect-contact-attributes.html) instead of ARNs.  In the [flow that the phone number is attached to](https://docs.aws.amazon.com/connect/latest/adminguide/associate-claimed-ported-phone-number-to-flow.html) (ACME_Main in our case) there is a mapping Lambda that runs that has an entry for all possible keys that one could encounter within a particular Amazon Connect instance and maps those keys to the corresponding ARN.
 
@@ -170,7 +160,7 @@ This Github connection is used to authenticate you to the repository.  Please se
 ### Update amzconnect-devops-pipelines/env/devops.json
 1. Update the account field with the AWS Account ID for the tooling account.
 1. Update the region field.
-1. Update the codestarArn field with the ARN from the GitHub Connection. 
+1. Update the codestarArn field with the ARN from the GitHub Connection.
 1. Update the owner field with your Github account alias.
 1. Update the email field with your email address.
 
@@ -244,6 +234,7 @@ The branch name is the value you provided in the cicd-connect-workshop/amzconnec
     - Provide a instanceAlias and instanceStorageBucketName.  These needs to be globally unique and follow the naming rules.  
     - An [AWS Step Function](https://aws.amazon.com/step-functions/) will run.  The Step Functions will append dev/staging/prod to whatever you use here to make sure that they are different from each other.  The config file will also configure the instance storage requirements as well as two queues which we need for our test flows to work. 
 
+- **TODO** Does instanceStorageBucketName need to be lowercase or does your code handle this? 
 ```
 {
   "instanceAlias": "mytestalias-aaazzz",

@@ -1,0 +1,102 @@
+[
+  {
+    "localeId": "en_US",
+    "nluConfidenceThreshold": 0.80,
+    "voiceSettings": {
+      "voiceId": "Joanna"
+    },
+    "intents": [
+      {
+        "name": "Sales",
+        "sampleUtterances": [
+          {
+            "utterance": "sales"
+          }
+        ],
+        "dialogCodeHook": {
+          "enabled": false
+        },
+        "fulfillmentCodeHook": {
+            "enabled": false,
+            "postFulfillmentStatusSpecification": {
+                "successResponse": {
+                    "messageGroupsList": [
+                        {
+                            "message": {
+                                "plainTextMessage": {
+                                    "value": "Transferring call to Sales"
+                                }
+                            }
+                        }
+                    ],
+                    "allowInterrupt": true
+                },
+                "failureResponse": {
+                    "messageGroupsList": [
+                        {
+                            "message": {
+                                "plainTextMessage": {
+                                    "value": "Oops"
+                                }
+                            }
+                        }
+                    ],
+                    "allowInterrupt": true
+                }
+            }
+        }
+      },
+      {
+        "name": "Finance",
+        "sampleUtterances": [
+          {
+            "utterance": "finance"
+          }
+        ],
+        "dialogCodeHook": {
+          "enabled": false
+        },
+        "fulfillmentCodeHook": {
+            "enabled": false,
+            "postFulfillmentStatusSpecification": {
+                "successResponse": {
+                    "messageGroupsList": [
+                        {
+                            "message": {
+                                "plainTextMessage": {
+                                    "value": "Transferring call to Finance"
+                                }
+                            }
+                        }
+                    ],
+                    "allowInterrupt": true
+                },
+                "failureResponse": {
+                    "messageGroupsList": [
+                        {
+                            "message": {
+                                "plainTextMessage": {
+                                    "value": "Oops"
+                                }
+                            }
+                        }
+                    ],
+                    "allowInterrupt": true
+                }
+            }
+        }
+      },
+      {
+        "name": "FallbackIntent",
+        "description": "Default intent when no other intent matches",
+        "dialogCodeHook": {
+          "enabled": false
+        },
+        "fulfillmentCodeHook": {
+          "enabled": false
+        },
+        "parentIntentSignature": "AMAZON.FallbackIntent"
+      }
+    ]
+  }
+]

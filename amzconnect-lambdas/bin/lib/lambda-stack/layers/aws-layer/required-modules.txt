@@ -1,0 +1,13 @@
+@aws-sdk/client-connect
+@aws-sdk/client-ssm
+@aws-sdk/client-s3
+aws-xray-sdk-core
+@aws-sdk/client-lex-models-v2
+@aws-sdk/lib-storage
+@aws-sdk/client-lambda
+@aws-lambda-powertools/tracer
+@aws-lambda-powertools/logger
+@middy/core
+@types/aws-lambda
+jszip
+js-beautify
