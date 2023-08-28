@@ -53,8 +53,7 @@ The only flow that acts differently is the ACME_Main flow because we need to ref
 1. If your solution uses multiple Lambda functions, then you will need to insert a Set contact attributes definition.  This will move the mapping variables from the external memory space to the user memory space.  This is required because the next Lambda function that runs will overwrite the external memory space.  For the purposes of this Workshop, it wasn't necessary. The Set contact attributes definition will look like this:
     - ![[set-contact-attributes.png]](images/set-contact-attributes.png)
 1. ACME_customer_queue is a [Customer queue flow](https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html) that contains a [Loop prompts definition](https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html). This definition does not support dynamic attributes so it's deployed with only a text prompt. In reality, you will add an audio prompt after the flow has been deployed.
-    - ![[Github-connection.png]](images/Github-connection.png)
-1. This solution only supports one [AWS Region](https://aws.amazon.com/about-aws/global-infrastructure/regions_az/).  The next version will includde Multi-Region support.  This is required for [Amazon Connect Global Resiliency](https://docs.aws.amazon.com/connect/latest/adminguide/setup-connect-global-resiliency.html).
+1. This solution only supports one [AWS Region](https://aws.amazon.com/about-aws/global-infrastructure/regions_az/).  The next version will include Multi-Region support.  This is required for [Amazon Connect Global Resiliency](https://docs.aws.amazon.com/connect/latest/adminguide/setup-connect-global-resiliency.html).
 
 ## Prerequisites
 
@@ -105,7 +104,7 @@ with a public subnet.
 #### Create the AWS IAM Roles that will be used by the AWS CodePipelines 
 1. Download [pipelineDeploymentRole.yml](pipelineDeploymentRole.yml).  This can be run as an [AWS CloudFormation StackSets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/what-is-cfnstacksets.html) if you are using [AWS Control Tower](https://aws.amazon.com/controltower/) or as a CloudFormation stack in each account.  This only needs to be run once per account because it supports multiple regions.
     1. Enter a stack name (e.g., CICDConnectWorkshop01PipelineDeploymentRole)
-    1. Enter the Tooling [Account Number](https://docs.aws.amazon.com/IAM/latest/UserGuide/console_account-alias.html#FindingYourAWSId) for the pToolingAcountId parameters
+    1. Enter the Tooling [Account Number](https://docs.aws.amazon.com/IAM/latest/UserGuide/console_account-alias.html#FindingYourAWSId) for the pToolingAccountId parameters
     1. Check the "I acknowledge that AWS CloudFormation might create IAM resources with custom names."
 
 ### Fork this repository to your GitHub account
@@ -129,7 +128,7 @@ This Github connection is used to authenticate you to the repository.  Please se
 1. Select the Connect button
 1. Note the Arn because it will be used in a later step
 
-![[Github-connection.png]](images/Github-connection.png)
+![[github-connection.png]](images/github-connection.png)
 
 ### Update amzconnect-devops-pipelines/env/accountvars.json
 1. ```cd ~/environment/cicd-connect-workshop/amzconnect-devops-pipelines/env/```
