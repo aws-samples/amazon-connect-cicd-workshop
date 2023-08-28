@@ -369,8 +369,8 @@ Example output:
 ```
 {
     "ContactFlow": {
-        "Arn": "arn:aws:connect:us-east-1:251778280686:instance/34ed4674-e1c9-43ee-880d-3a5c242913cd/contact-flow/a318e3af-f88e-45e0-88ac-35808a898b52",
-        "Id": "a318e3af-f88e-45e0-88ac-35808a898b52",
+        "Arn": "arn:aws:connect:us-east-1:XXXXXXXXXXXX:instance/34ed4674-e1c9-43ee-880d-XXXXXXXXXXXX/contact-flow/a318e3af-f88e-45e0-88ac-35808a898b52",
+        "Id": "a318e3af-f88e-45e0-88ac-XXXXXXXXXXXX",
         "Name": "Default agent whisper",
         "Type": "AGENT_WHISPER",
         "State": "ACTIVE",
