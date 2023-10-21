@@ -1,0 +1,9 @@
+{
+    "env": "devops",
+    "account": "XXXXXXXXXXXZ",
+    "region": "us-east-1",
+    "codestarArn": "arn:aws:codestar-connections:us-east-2:XXXXXXXXXXXX:connection/5ab48603-7bae-4a43-a256-XXXXXXXXXXXX",
+    "repo": "forked repo here",
+    "owner": "Your github alias",
+    "email": "your email address"
+}
