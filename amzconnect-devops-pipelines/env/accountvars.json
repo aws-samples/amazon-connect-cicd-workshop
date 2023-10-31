@@ -1,6 +1,14 @@
 {
     "accounts": [
     {
+        "env": "dev",
+        "branch": "develop",
+        "enabled": true,
+        "account": "857874443368",
+        "region": ["ca-central-1"],
+        "app": "ACME"
+    },
+    {
         "env": "prod",
         "branch": "main",
         "enabled": true,
