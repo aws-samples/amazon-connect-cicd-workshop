@@ -1,9 +1,9 @@
 {
     "env": "devops",
-    "account": "XXXXXXXXXXXZ",
+    "account": "857874443368",
     "region": "us-east-1",
-    "codestarArn": "arn:aws:codestar-connections:us-east-2:XXXXXXXXXXXX:connection/5ab48603-7bae-4a43-a256-XXXXXXXXXXXX",
-    "repo": "forked repo here",
-    "owner": "Your github alias",
-    "email": "your email address"
+    "codestarArn": "arn:aws:codestar-connections:ca-central-1:857874443368:connection/d64e4e9f-adc5-4f44-aae1-d2244c58e4dc",
+    "repo": "amazon-connect-cicd-workshop",
+    "owner": "jawslab",
+    "email": "jawslab+aws24@gmail.com"
 }
