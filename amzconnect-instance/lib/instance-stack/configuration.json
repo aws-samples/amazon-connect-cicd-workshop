@@ -1,5 +1,5 @@
 {
-  "instanceAlias": "myTestalias-aaazzz",
+  "instanceAlias": "jawslab-cicd24",
   "instanceStorageBucketName": "connect-aaazzz",
   "identityManagementType": "CONNECT_MANAGED",
   "instanceStorageConfig": [
