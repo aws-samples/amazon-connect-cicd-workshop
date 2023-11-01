@@ -1,6 +1,6 @@
 {
   "instanceAlias": "jawslab-cicd24",
-  "instanceStorageBucketName": "connect-aaazzz",
+  "instanceStorageBucketName": "connect-jawslab-cicd24",
   "identityManagementType": "CONNECT_MANAGED",
   "instanceStorageConfig": [
     {
